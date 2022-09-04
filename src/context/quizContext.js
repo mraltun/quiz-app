@@ -25,6 +25,33 @@ const AppProvider = ({ children }) => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const fetchQuestions = async (url) => {
+    setLoading(true);
+    setWaiting(false);
+    const response = await axios(url).catch((err) => console.log(err));
+
+    if (response) {
+      const data = response.data.results;
+      // If we get the questions then data array is 1+
+      if (data.length > 0) {
+        setQuestions(data);
+        setLoading(false);
+        setWaiting(false);
+        setError(false);
+      } else {
+        setWaiting(true);
+        setError(true);
+      }
+    } else {
+      setWaiting(true);
+    }
+  };
+
+  // Just for the test purposes. Refactor later.
+  useEffect(() => {
+    fetchQuestions(tempUrl);
+  }, []);
+
   return (
     <AppContext.Provider
       value={{

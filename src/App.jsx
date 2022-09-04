@@ -12,7 +12,7 @@ const App = () => {
     return <SetupForm />;
   }
 
-  // Show loading if we are still fetching the data
+  // Show loading if we are fetching the data
   if (loading) {
     return <Loading />;
   }
