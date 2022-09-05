@@ -5,7 +5,8 @@ import Modal from "./components/Modal";
 import SetupForm from "./components/SetupForm";
 
 const App = () => {
-  const { waiting, loading, questions, index, correct } = useGlobalContext();
+  const { waiting, loading, questions, index, correct, nextQuestion } =
+    useGlobalContext();
 
   // Show the form if we are waiting for user input
   if (waiting) {
@@ -43,7 +44,9 @@ const App = () => {
             })}
           </div>
         </article>
-        <button className='next-question'>next question</button>
+        <button className='next-question' onClick={nextQuestion}>
+          next question
+        </button>
       </section>
     </main>
   );
