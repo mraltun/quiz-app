@@ -11,7 +11,8 @@ const table = {
 
 const API_ENDPOINT = "https://opentdb.com/api.php?";
 
-const tempUrl = "https://opentdb.com/api.php?amount=10&category=14";
+const tempUrl =
+  "https://opentdb.com/api.php?amount=10&category=14&difficulty=easy";
 
 const AppContext = React.createContext();
 
@@ -26,7 +27,11 @@ const AppProvider = ({ children }) => {
   // Correct answers
   const [correct, setCorrect] = useState(0);
   const [error, setError] = useState(false);
-
+  const [quiz, setQuiz] = useState({
+    amount: 10,
+    category: "television",
+    difficulty: "easy",
+  });
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const fetchQuestions = async (url) => {
@@ -84,9 +89,17 @@ const AppProvider = ({ children }) => {
   };
 
   // Just for the testing purposes. Refactor later.
-  useEffect(() => {
-    fetchQuestions(tempUrl);
-  }, []);
+  // useEffect(() => {
+  //   fetchQuestions(tempUrl);
+  // }, []);
+
+  const handleChange = (e) => {
+    console.log(e);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
 
   return (
     <AppContext.Provider
@@ -101,6 +114,9 @@ const AppProvider = ({ children }) => {
         nextQuestion,
         checkAnswer,
         closeModal,
+        quiz,
+        handleChange,
+        handleSubmit,
       }}
     >
       {children}
