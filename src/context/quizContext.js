@@ -4,12 +4,12 @@ import React, { useState, useContext, useEffect } from "react";
 const table = {
   film: 11,
   television: 14,
-  sports: 21,
-  history: 23,
-  politics: 24,
+  videogames: 15,
 };
 
 const API_ENDPOINT = "https://opentdb.com/api.php?";
+
+const url = ``;
 
 const tempUrl =
   "https://opentdb.com/api.php?amount=10&category=14&difficulty=easy";
@@ -99,6 +99,11 @@ const AppProvider = ({ children }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const { amount, category, difficulty } = quiz;
+    // table object above holds the numeric value for API. If the user select "film" we get "11" from the table
+    const url = `${API_ENDPOINT}amount=${amount}&difficulty=${difficulty}&category=${table[category]}&type=multiple`;
+
+    fetchQuestions(url);
   };
 
   return (
