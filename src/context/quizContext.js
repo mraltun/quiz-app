@@ -56,7 +56,7 @@ const AppProvider = ({ children }) => {
       const index = oldIndex + 1;
       // If it's end of the array return to first question
       if (index > questions.length - 1) {
-        // openModal()
+        openModal();
         return 0;
       } else {
         return index;
@@ -73,7 +73,17 @@ const AppProvider = ({ children }) => {
     nextQuestion();
   };
 
-  // Just for the test purposes. Refactor later.
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setWaiting(true);
+    setCorrect(0);
+    setIsModalOpen(false);
+  };
+
+  // Just for the testing purposes. Refactor later.
   useEffect(() => {
     fetchQuestions(tempUrl);
   }, []);
@@ -90,6 +100,7 @@ const AppProvider = ({ children }) => {
         isModalOpen,
         nextQuestion,
         checkAnswer,
+        closeModal,
       }}
     >
       {children}
