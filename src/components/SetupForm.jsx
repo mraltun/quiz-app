@@ -16,6 +16,7 @@ const SetupForm = () => {
             </label>
             <input
               type='number'
+              // Name has to match with values inside handleChange
               name='amount'
               id='amount'
               value={quiz.amount}

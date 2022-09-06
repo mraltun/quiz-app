@@ -27,6 +27,7 @@ const AppProvider = ({ children }) => {
   // Correct answers
   const [correct, setCorrect] = useState(0);
   const [error, setError] = useState(false);
+  // User selections. Controlled inputs as object
   const [quiz, setQuiz] = useState({
     amount: 10,
     category: "television",
@@ -88,13 +89,12 @@ const AppProvider = ({ children }) => {
     setIsModalOpen(false);
   };
 
-  // Just for the testing purposes. Refactor later.
-  // useEffect(() => {
-  //   fetchQuestions(tempUrl);
-  // }, []);
-
   const handleChange = (e) => {
-    console.log(e);
+    // The values has to match with html element's "name".
+    const name = e.target.name;
+    const value = e.target.value;
+    // Dynamically change the values (i.e difficulty: easy)
+    setQuiz({ ...quiz, [name]: value });
   };
 
   const handleSubmit = (e) => {
