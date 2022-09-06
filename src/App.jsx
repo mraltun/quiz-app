@@ -5,8 +5,15 @@ import Modal from "./components/Modal";
 import SetupForm from "./components/SetupForm";
 
 const App = () => {
-  const { waiting, loading, questions, index, correct, nextQuestion } =
-    useGlobalContext();
+  const {
+    waiting,
+    loading,
+    questions,
+    index,
+    correct,
+    nextQuestion,
+    checkAnswer,
+  } = useGlobalContext();
 
   // Show the form if we are waiting for user input
   if (waiting) {
@@ -33,12 +40,15 @@ const App = () => {
           {/* The API is returns HTML, not string. */}
           <h2 dangerouslySetInnerHTML={{ __html: question }} />
           <div className='btn-container'>
+            {/* Render answers as Button element */}
             {answers.map((answer, index) => {
               return (
                 <button
                   key={index}
                   className='answer-btn'
                   dangerouslySetInnerHTML={{ __html: answer }}
+                  // Check if the answer in the button is matches with correct one. When match it passes true to checkAnswer, else it's false
+                  onClick={() => checkAnswer(correct_answer === answer)}
                 ></button>
               );
             })}

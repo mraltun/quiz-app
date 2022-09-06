@@ -16,10 +16,14 @@ const tempUrl = "https://opentdb.com/api.php?amount=10&category=14";
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
+  // Waiting user input
   const [waiting, setWaiting] = useState(true);
   const [loading, setLoading] = useState(false);
+  // Fetch all the questions
   const [questions, setQuestions] = useState([]);
+  // Index number of the question
   const [index, setIndex] = useState(0);
+  // Correct answers
   const [correct, setCorrect] = useState(0);
   const [error, setError] = useState(false);
 
@@ -32,7 +36,7 @@ const AppProvider = ({ children }) => {
 
     if (response) {
       const data = response.data.results;
-      // If we get the questions then data array is 1+
+      // If we get the questions it means data array is 1+
       if (data.length > 0) {
         setQuestions(data);
         setLoading(false);
@@ -60,6 +64,15 @@ const AppProvider = ({ children }) => {
     });
   };
 
+  const checkAnswer = (value) => {
+    // If the value is true, add one to correct answers
+    if (value) {
+      setCorrect((oldState) => oldState + 1);
+    }
+    // Regardless, go to next question
+    nextQuestion();
+  };
+
   // Just for the test purposes. Refactor later.
   useEffect(() => {
     fetchQuestions(tempUrl);
@@ -76,6 +89,7 @@ const AppProvider = ({ children }) => {
         error,
         isModalOpen,
         nextQuestion,
+        checkAnswer,
       }}
     >
       {children}
